@@ -5,6 +5,8 @@
     <title>게시글 작성</title>
 </head>
 <body>
+<div th:replace="header.html :: header"></div>
+
 <h2>게시글 작성</h2>
 <form action="/board/writecontroller" method="post">
     <table>
@@ -28,7 +30,7 @@
         </tr>
     </table>
     <div>
-        <button type="button">확인</button>
+        <input type="submit">확인</input>
         <button type="button">취소</button>
     </div>
 </form>

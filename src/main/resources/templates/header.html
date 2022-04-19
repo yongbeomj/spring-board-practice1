@@ -5,8 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-<header>
-    header
-</header>
+    <table>
+        <tr>
+            <td><a th:href="@{/}">Home</a></td>
+            <td><a th:href="@{/board/boardlist}">게시판</a></td>
+            <td><a th:href="@{/member/signup}">회원가입</a></td>
+            <td><a th:href="@{/member/login}">로그인</a></td>
+            <td><a th:href="@{/member/info}">내정보</a></td>
+            <td><a th:href="@{/member/logout}">로그아웃</a></td>
+        </tr>
+    </table>
+    <hr>
 </body>
 </html>
