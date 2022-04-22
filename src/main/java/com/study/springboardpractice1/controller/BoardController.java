@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -36,12 +35,12 @@ public class BoardController {
         return "board/boardwrite";
     }
 
-    @PostMapping("/board1/writecontroller")
+    @PostMapping("/board/writecontroller")
     @ResponseBody
     public RedirectView boardwritecontroller(BoardDto boardDto) {
         HttpSession session = request.getSession();
         MemberDto memberDto = (MemberDto) session.getAttribute("logindto");
-        boolean result = BoardService.boardwrite(boardDto, memberDto.getMno());
+        boolean result = boardService.boardwrite(boardDto, memberDto.getMno());
         if (result) {
             return new RedirectView("/board/boardlist");
         } else {
