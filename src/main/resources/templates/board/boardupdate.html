@@ -7,26 +7,46 @@
 <body>
 <div th:replace="header.html :: header"></div>
 
-<h2>게시글 수정</h2>
-<form action="/board/updatecontroller" method="post">
-    <table>
-        <tr>
-            <td>제목</td>
-            <td>
-                <input type="text" id="btitle" name="btitle">
-            </td>
-        </tr>
-        <tr>
-            <td>내용</td>
-            <td>
-                <textarea type="text" id="bcontents" name="bcontents"></textarea>
-            </td>
-        </tr>
-    </table>
-    <div>
-        <button type="button">확인</button>
-        <button type="button">취소</button>
+<div class="container">
+
+    <div class="d-flex justify-content-between">
+        <div>
+            <h2>게시글 수정</h2>
+        </div>
     </div>
+    <div>
+        <form action="/board/updatecontroller" method="post">
+            <input type="text" name="bno" th:value="${boardDto.bno}" style="display:none;">
+            <table class="table">
+                <tr>
+                    <td>제목</td>
+                    <td>
+                        <input name="btitle" class="form-control" th:value="${boardDto.btitle}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>내용</td>
+                    <td>
+                        <textarea name="bcontents" class="form-control" th:utext="${boardDto.bcontents}"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>작성자</td>
+                    <td>
+                        <input name="bwriter" class="form-control" th:value="${boardDto.bwriter}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>작성일</td>
+                    <td>
+                        <input class="form-control" th:value="${#temporals.format(boardDto.bcreateDate, 'yyyy-MM-dd hh:mm:ss')}" readonly>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="확인" class="btn btn-outline-secondary">
+        </form>
+    </div>
+</div>
 </form>
 </body>
 </html>

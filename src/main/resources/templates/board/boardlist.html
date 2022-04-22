@@ -39,7 +39,7 @@
         <tr th:each="boardDto : ${boardDtos}">
             <td th:text="${boardDto.bno}">번호</td>
             <td>
-                <a th:href="@{'/board1/boardview/' + ${boardDto.bno}}">
+                <a th:href="@{'/board/boardview/' + ${boardDto.bno}}">
                     <span th:text="${boardDto.btitle}">제목</span>
                 </a>
             </td>

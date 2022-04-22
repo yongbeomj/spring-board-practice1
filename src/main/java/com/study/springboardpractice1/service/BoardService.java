@@ -52,4 +52,50 @@ public class BoardService {
         }
         return boardDtos;
     }
+
+    // boardview
+    @Transactional
+    public BoardDto getboard(int bno) {
+        // 게시물을 찾는다
+        Optional<BoardEntity> entityOptional = boardRepository.findById(bno);
+        int mno = entityOptional.get().getMemberEntity().getMno();
+        Optional<MemberEntity> memberEntity = memberRepository.findById(mno);
+
+        // dto에 값을 넣고 리턴한다
+        return BoardDto.builder()
+                .bno(entityOptional.get().getBno())
+                .btitle(entityOptional.get().getBtitle())
+                .bcontents(entityOptional.get().getBcontents())
+                .bwriter(memberEntity.get().getMid())
+                .bcreateDate(entityOptional.get().getCreatedDate())
+                .build();
+    }
+
+    // boarddelete
+    @Transactional
+    public boolean boarddelete(int bno) {
+        Optional<BoardEntity> entityOptional = boardRepository.findById(bno);
+        if (entityOptional.get() != null) {
+            boardRepository.delete(entityOptional.get());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // boardupdate
+    @Transactional
+    public boolean boardupdate(BoardDto boardDto) {
+        try {
+            Optional<BoardEntity> entityOptional = boardRepository.findById(boardDto.getBno());
+            entityOptional.get().setBtitle(boardDto.getBtitle());
+            entityOptional.get().setBcontents(boardDto.getBcontents());
+            return true;
+        } catch (Exception e) {
+            System.out.println("에러");
+            System.out.println(e);
+            return false;
+        }
+    }
+
 }
