@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,5 +33,23 @@ public class BoardService {
                 .build();
         boardRepository.save(boardEntity);
         return true;
+    }
+
+    // boardlist
+    @Transactional
+    public ArrayList<BoardDto> boardlist() {
+        List<BoardEntity> boardEntities = boardRepository.findAll();
+        ArrayList<BoardDto> boardDtos = new ArrayList<>();
+        for (int i = 0; i < boardEntities.size(); i++) {
+            BoardDto boardDto = new BoardDto(
+                    boardEntities.get(i).getBno(),
+                    boardEntities.get(i).getGroupno(),
+                    boardEntities.get(i).getBtitle(),
+                    boardEntities.get(i).getBcontents(),
+                    boardEntities.get(i).getMemberEntity().getMid(),
+                    boardEntities.get(i).getCreatedDate());
+            boardDtos.add(boardDto);
+        }
+        return boardDtos;
     }
 }
